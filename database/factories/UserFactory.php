@@ -27,7 +27,11 @@ class UserFactory extends Factory
         $firstName = $this->faker->firstName();
         $lastName = $this->faker->lastName();
 
-        $email = strtolower($firstName.$lastName).'@'.$this->faker->word('4').'.com';
+        $email = strtolower($firstName.$lastName)
+            .'@'
+            .$this->faker->randomElement(
+                ['gmail.com', 'email.com', 'email.org']
+            );
 
         return [
             'first_name' => $firstName,

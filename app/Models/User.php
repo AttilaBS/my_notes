@@ -62,6 +62,25 @@ class User extends Authenticatable
     ];
 
     /**
+     * Search method to use with Livewire.
+     *
+     * @param $query
+     *
+     * @return
+     */
+    public static function search($query)
+    {
+        return empty($query) ? static::query()->where('user_type', 'user')
+            : static::where('user_type', 'user')
+                ->where(function ($q) use ($query) {
+                    $q
+                        ->where('first_name', 'like', '%' . $query . '%')
+                        ->orWhere('last_name', 'like', '%' . $query . '%')
+                        ->orWhere('email', 'like', '%' . $query . '%');
+                });
+    }
+
+    /**
      * Create a new factory instance for the model.
      *
      * @return Factory

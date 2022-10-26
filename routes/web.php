@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ListMyNotesController;
+use App\Http\Controllers\CreateMyNotesController;
+use App\Http\Controllers\UpdateMyNotesController;
+use App\Http\Controllers\DeleteMyNotesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,11 +18,19 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('index');
+});
 
-Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::name('my-notes.')->prefix('notes')->group(function () {
+    Route::get('/', ListMyNotesController::class)->name('list');
+    Route::post('/create', CreateMyNotesController::class)->name('create');
+    Route::post('/update', UpdateMyNotesController::class)->name('update');
+    Route::post('/delete', DeleteMyNotesController::class)->name('delete');
+});
+
+
+//Route::get('/', [HomeController::class, 'home'])->name('home');
 
 Route::middleware([
     'auth:sanctum',
