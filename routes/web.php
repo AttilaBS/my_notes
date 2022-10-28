@@ -19,22 +19,10 @@ use App\Http\Controllers\DeleteMyNotesController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
 
-Route::name('my-notes.')->prefix('notes')->group(function () {
-    Route::get('/', ListMyNotesController::class)->name('list');
-    Route::post('/create', CreateMyNotesController::class)->name('create');
-    Route::post('/update', UpdateMyNotesController::class)->name('update');
-    Route::post('/delete', DeleteMyNotesController::class)->name('delete');
-});
-
-
-//Route::get('/', [HomeController::class, 'home'])->name('home');
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
+Route::middleware(['auth:sanctum', config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
     Route::get('/dashboard', function () {

@@ -2,19 +2,19 @@
 
 namespace Database\Factories;
 
-use App\Models\MyNotes;
+use App\Models\MyNote;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Laravel\Jetstream\Features;
 
-class MyNotesFactory extends Factory
+class MyNoteFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = MyNotes::class;
+    protected $model = MyNote::class;
 
     /**
      * Define the model's default state.
@@ -24,6 +24,7 @@ class MyNotesFactory extends Factory
     public function definition(): array
     {
         return [
+            'id' => $this->faker->numerify('####'),
             'user_id' => User::query()->firstOr(
                 fn () => User::factory()->create()
             ),
